@@ -285,6 +285,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
                 </label>
                 <label 
                     htmlFor="jd-file-upload" 
+                    title="Upload a PDF or DOCX file (max 5MB)."
                     className={`inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
                         isAppBusy
                         ? 'bg-slate-200 dark:bg-slate-700 text-slate-500 cursor-not-allowed'
@@ -317,6 +318,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
             rows={15}
             className={`w-full p-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 transition ${(jdFile || jdImagePreview) ? 'mt-2' : ''}`}
             placeholder="Paste the full job description here, or upload a file above."
+            title="Paste the complete job description. Include responsibilities, qualifications, and required skills for the most accurate analysis."
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
             disabled={isAppBusy}
@@ -329,6 +331,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
                 </label>
                 <label 
                     htmlFor="resume-file-upload" 
+                    title="Upload a PDF or DOCX file (max 5MB)."
                     className={`inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
                         isAppBusy
                         ? 'bg-slate-200 dark:bg-slate-700 text-slate-500 cursor-not-allowed'
@@ -361,6 +364,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
             rows={15}
             className={`w-full p-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 transition ${(resumeFile || resumeImagePreview) ? 'mt-2' : ''}`}
             placeholder="Paste the full resume text here, or upload a file above."
+            title="Paste the full text of the resume. Ensure all sections like experience, skills, and education are included."
             value={resumeText}
             onChange={(e) => setResumeText(e.target.value)}
             disabled={isAppBusy}
@@ -371,7 +375,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
         <button
           onClick={onAnalyze}
           disabled={isAnalyzeDisabled}
-          className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:bg-slate-400 dark:disabled:bg-slate-600 disabled:cursor-not-allowed transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:from-slate-400 disabled:to-slate-500 dark:disabled:from-slate-600 dark:disabled:to-slate-700 disabled:shadow-none disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
         >
           {isLoading ? (
             'Analyzing...'

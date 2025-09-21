@@ -2,6 +2,7 @@
 export interface AnalysisResult {
   relevanceScore: number;
   verdict: 'High Suitability' | 'Medium Suitability' | 'Low Suitability';
+  matchedSkills: string[];
   missingSkills: string[];
   missingProjects: string[];
   missingCertifications: string[];

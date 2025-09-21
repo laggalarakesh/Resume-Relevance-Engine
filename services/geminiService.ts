@@ -15,6 +15,11 @@ const responseSchema = {
       type: Type.STRING,
       description: "A verdict of 'High Suitability', 'Medium Suitability', or 'Low Suitability'.",
     },
+    matchedSkills: {
+      type: Type.ARRAY,
+      items: { type: Type.STRING },
+      description: "A list of key skills from the job description that are successfully found in the resume."
+    },
     missingSkills: {
       type: Type.ARRAY,
       items: { type: Type.STRING },
@@ -36,7 +41,7 @@ const responseSchema = {
       description: "Actionable suggestions for the candidate to improve their resume for this specific role.",
     },
   },
-  required: ["relevanceScore", "verdict", "missingSkills", "missingProjects", "missingCertifications", "improvementSuggestions"],
+  required: ["relevanceScore", "verdict", "matchedSkills", "missingSkills", "missingProjects", "missingCertifications", "improvementSuggestions"],
 };
 
 export const analyzeResume = async (jobDescription: string, resumeText: string): Promise<AnalysisResult> => {
@@ -56,6 +61,7 @@ export const analyzeResume = async (jobDescription: string, resumeText: string):
     
     Calculate a relevance score from 0-100.
     Provide a suitability verdict (High, Medium, or Low).
+    Identify and list the key skills that are present in BOTH the job description and the resume.
     Identify missing skills, project types, and certifications mentioned in the job description but not in the resume.
     Offer specific, constructive suggestions for how the candidate can improve their resume to better match this job description.
   `;

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { HistoryEntry } from '../types';
 import { ResultsDashboard } from './ResultsDashboard';
@@ -22,9 +21,21 @@ const ArrowUpOnSquareIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => 
 );
 
 const verdictStyles = {
-    'High Suitability': 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300',
-    'Medium Suitability': 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300',
-    'Low Suitability': 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300',
+    'High Suitability': {
+        bg: 'bg-green-500',
+        text: 'text-green-700 dark:text-green-300',
+        textTag: 'bg-green-100 dark:bg-green-900/40'
+    },
+    'Medium Suitability': {
+        bg: 'bg-amber-500',
+        text: 'text-amber-700 dark:text-amber-300',
+        textTag: 'bg-amber-100 dark:bg-amber-900/40'
+    },
+    'Low Suitability': {
+        bg: 'bg-red-500',
+        text: 'text-red-700 dark:text-red-300',
+        textTag: 'bg-red-100 dark:bg-red-900/40'
+    },
 };
 
 interface HistoryItemProps {
@@ -44,6 +55,8 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ entry, onDelete, onLoa
     const formattedTime = date.toLocaleTimeString(undefined, {
         hour: '2-digit', minute: '2-digit'
     });
+    
+    const verdictStyle = verdictStyles[result.verdict] || verdictStyles['Medium Suitability'];
 
     return (
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
@@ -53,18 +66,18 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ entry, onDelete, onLoa
                 aria-expanded={isOpen}
                 aria-controls={`history-content-${id}`}
             >
-                <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 font-bold text-lg text-slate-700 dark:text-slate-200">
+                <div className="flex items-center gap-4 flex-grow min-w-0">
+                    <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white ${verdictStyle.bg}`}>
                         {result.relevanceScore}%
                     </div>
-                    <div className="flex flex-col items-start">
-                         <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${verdictStyles[result.verdict]}`}>
+                    <div className="flex flex-col items-start flex-grow min-w-0">
+                         <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${verdictStyle.text} ${verdictStyle.textTag}`}>
                             {result.verdict}
                         </span>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{formattedDate} at {formattedTime}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 truncate">{formattedDate} at {formattedTime}</p>
                     </div>
                 </div>
-                 <ChevronDownIcon className={`w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                 <ChevronDownIcon className={`w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
             <div
                 id={`history-content-${id}`}
